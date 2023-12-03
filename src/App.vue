@@ -1,6 +1,6 @@
 <script setup>
 //import HomeComponent from '@/components/HomeComponent.vue';
-//import SplashScreen from '@/components/SplashScreen.vue';
+import SplashScreen from '@/components/SplashScreen.vue';
 import { defineAsyncComponent } from 'vue';
 
 const HomeAsyncComponent = defineAsyncComponent(() => {
@@ -13,7 +13,14 @@ const HomeAsyncComponent = defineAsyncComponent(() => {
 </script>
 
 <template>
-  <HomeAsyncComponent />
+  <Suspense>
+    <template #default>
+      <HomeAsyncComponent />
+    </template>
+    <template #fallback>
+      <SplashScreen />
+    </template>
+  </Suspense>
 </template>
 
 <style>
