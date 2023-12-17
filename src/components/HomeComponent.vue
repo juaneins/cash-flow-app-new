@@ -9,6 +9,7 @@ import ActionComponent from './ActionComponent.vue';
 import GraphicComponent from './Resume/GraphicComponent.vue';
 
 const amount = ref(null);
+const amounts = ref([100, 200, 500, 200, -400, -600, -300, 0, 300, 500]);
 const movements = ref([
     {
         id: 1,
@@ -40,7 +41,10 @@ const movements = ref([
         description: "Reparación equipo",
         amount: 1000,
     },
-],)
+],);
+
+
+
 
 </script> 
 <template>
@@ -51,7 +55,7 @@ const movements = ref([
         <template #resume>
             <ResumeComponent :label="'Ahorro Total'" :total-amount="45250" :amount="amount">
                 <template #graphic>
-                    <GraphicComponent />
+                    <GraphicComponent :amounts="amounts" />
                 </template>
                 <template #action>
                     <ActionComponent />
