@@ -1,5 +1,5 @@
 <script setup>
-function reload() {
+const reload = () => {
     location.reload();
 }
 </script>

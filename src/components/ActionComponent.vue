@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, defineEmits } from 'vue';
 import ModalComponent from './ModalComponent.vue';
 const showModal = ref(false);
 const title = ref("");
@@ -7,8 +7,21 @@ const amount = ref(0);
 const description = ref("");
 const movementType = ref("Ingreso");
 
+const emit = defineEmits(["create"]);
+
 const submit = () => {
     showModal.value = !showModal.value;
+    emit("create", {
+        id: new Date().getTime(),
+        title: title.value,
+        description: description.value,
+        amount: movementType.value === 'Ingreso' ? amount.value : - amount.value,
+        time: new Date(),
+    });
+    title.value = "";
+    description.value = "";
+    amount.value = 0;
+    movementType.value = "Ingreso";
 }
 
 </script>
