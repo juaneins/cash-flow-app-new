@@ -25,14 +25,14 @@ onMounted(() => {
 
 const amounts = ref(computed(() => {
     const lastDays = movements.value
-    .filter(m => {
-        const today = new Date();
-        const oldDate = today.setDate(today.getDate() - 30);       
-        return m.time > oldDate;
-    })
-    .map(m => m.amount);
+        .filter(m => {
+            const today = new Date();
+            const oldDate = today.setDate(today.getDate() - 30);
+            return m.time > oldDate;
+        })
+        .map(m => m.amount);
     return lastDays.map((m, i) => {
-        const lastMovements = lastDays.slice(0,i);
+        const lastMovements = lastDays.slice(0, i + 1);
         return lastMovements.reduce((sum, movement) => {
             return sum + movement;
         }, 0);
@@ -60,6 +60,11 @@ const save = () => {
     localStorage.setItem("movements", JSON.stringify(movements));
 }
 
+const select = (e) => {
+    console.log(e);
+    amount.value = e;
+}
+
 </script> 
 <template>
     <LayoutComponent>
@@ -72,7 +77,8 @@ const save = () => {
                 :total-amount="totalAmount" 
                 :amount="amount">
                 <template #graphic>
-                    <GraphicComponent :amounts="amounts" />
+                    <GraphicComponent :amounts="amounts"
+                    @select="select" />
                 </template>
                 <template #action>
                     <ActionComponent @create="create"/>
